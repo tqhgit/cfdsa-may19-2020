@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata: 
+   name: nwapp-ing
+   labels:
+      app: northwind
+   annotations:
+      kubernates.io/ingress.class: "nginx"
+      nginx.ingress.kubernates.io/rewrite-target: /$2
+
+spec:
+   rules:
+    - host: "v1.nwapp.167.172.6.183.nip.io"
+      http:
+        paths:
+        - path: /
+          backend:
+                serviceName: nwapp-svc
+                servicePort: 8080
+    - host: "v2.nwapp.167.172.6.183.nip.io"
+      http:
+        paths:
+        - path: /
+          backend:
+               serviceName: nwappv2-svc
+               servicePort: 8080
